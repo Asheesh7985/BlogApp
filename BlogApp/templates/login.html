@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="col-sm-10">
+    <h1 class="text-white mt-4">Login Page </h1>
+       <form action="" method="POST" class="col-sm-8 mt-4" novalidate>
+        {% if messages %}
+        {% for message in messages %}
+          <p {% if message.tags %} class="alert alert-{{message.tags}} " {% endif %}>{{message}}</p>
+        {% endfor %}
+        {% endif %}
+            {% csrf_token %}
+               {% for fm in form %}
+               <div class="form-group">
+                  {{fm.label_tag}} {{fm}}<small class='text-warning fw-bold'>{{fm.errors|striptags}}</small> 
+                </div>
+               {% endfor %}
+        
+          
+        <input type="submit" value='Login' class="btn btn-success btn-lg mt-4"/>
+       
+    </form>
+</div>
+
+{% endblock %}

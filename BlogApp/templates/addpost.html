@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="col-sm-10">
+    <h3 class="text-white my-5">Dashboard/Add Post Page</h3>
+    <h4 class="text-center alert alert-info mt-2">Add New Post</h4>
+    <form action="" method="POST" class="col-sm-12 mt-4 py-5" novalidate>
+        {% if messages %}
+        {% for message in messages %}
+          <p {% if message.tags %} class="alert alert-{{message.tags}} " {% endif %}>{{message}}</p>
+        {% endfor %}
+        {% endif %}
+            {% csrf_token %}
+               {% for fm in form %}
+               <div class="form-group">
+                  {{fm.label_tag}} {{fm}}<small class='text-warning fw-bold'>{{fm.errors|striptags}}</small> 
+                </div>
+               {% endfor %}
+        
+          
+        <input type="submit" value='Add Post' class="btn btn-success btn-sm mt-4 "/>
+        <a href="{% url 'dashboard' %}" class="btn btn-danger btn-sm mt-4">Cancle</a>
+       
+    </form>
+</div>
+{% endblock %}

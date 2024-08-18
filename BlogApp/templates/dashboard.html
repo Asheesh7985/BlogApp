@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block side %}
+<div class="col-sm-2 text-white my-5 text-center">
+    <h4 class="my-5">Profile</h4>
+    <h3 class="text-warning">{{full_name}}</h5>
+    {% for g in group %}
+      <p class="text-success fw-bold fs-3">{{g.name}}</p>
+    {% endfor %}
+</div>
+{% endblock %}
+{% block content %}
+<div class="col-sm-10">
+    <h1 class="text-white py-5">Dashboard Page </h1>
+    <a href="{% url 'addpost' %}" class="btn btn-primary">Add Post</a>
+    <h4 class="text-center alert alert-info mt-3">Show Post Information</h4>
+    {% if posts %}
+    <table class="table table-hover bg-white">
+        <thead>
+            <tr class="text-center">
+                <th scope="col" style="width: 2%;">ID</th>
+                <th scope="col" style="width: 28%;">Title</th>
+                <th scope="col" style="width: 55%;">Descrption</th>
+                <th scope="col" style="width: 15%;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in posts %}
+            <tr>
+                <td scope="row">{{post.id}}</td>
+                <td>{{post.title}}</td>
+                <td>{{post.descrption}}</td>
+                <td>
+                    <a href="{% url 'updatepost' post.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    {% if perms.BlogApp.delete_post %}
+                    <a href="{% url 'deletepost' post.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+
+{% endblock %}
